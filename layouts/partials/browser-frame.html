@@ -1,0 +1,33 @@
+{{- /*
+Reusable browser-chrome mockup: a rounded card with a macOS-style chrome bar
+(three dots + address pill) above the screenshot. Used on both the portfolio
+listing cards and the case-study pages, so both views share one visual system.
+
+Usage: {{ partial "browser-frame.html" (dict "img" "/media/img/portfolio/x.webp" "alt" "..." "url" "example.com" "imgClass" "aspect-[4/3] object-cover" "imgWidth" 1440 "imgHeight" 2710) }}
+- img: image src (required)
+- alt: image alt text (required)
+- url: text shown in the fake address bar (optional)
+- imgClass: extra classes appended to the <img> (optional — omit for natural height)
+- imgWidth / imgHeight: the image's real pixel dimensions (strongly recommended
+  whenever imgClass is omitted, i.e. the natural-height case-study usage).
+  Without them the <img> has no intrinsic size until it loads, the column
+  collapses to ~0 height, and position:sticky on a sibling column ends up
+  computed against that collapsed height — it looks "broken" until reload.
+  Passing width/height lets the browser reserve the right space upfront.
+- loading: "lazy" (default) or "eager". Use "eager" for the one large,
+  near-the-top case-study image — pairing loading="lazy" with a sticky
+  sibling is unreliable (Chrome can compute the sticky constraint before
+  the lazy image finishes loading and never re-evaluate it), so the one
+  prominent, mostly-above-the-fold image should just load immediately.
+*/ -}}
+<div class="overflow-hidden rounded-2xl border border-white/10 bg-[#0b0b0e] shadow-2xl">
+    <div class="flex items-center gap-1.5 border-b border-white/10 bg-white/[0.03] px-4 py-3">
+        <span class="h-2.5 w-2.5 rounded-full bg-[#ff5f57]"></span>
+        <span class="h-2.5 w-2.5 rounded-full bg-[#febc2e]"></span>
+        <span class="h-2.5 w-2.5 rounded-full bg-[#28c840]"></span>
+        {{ with .url }}
+            <span class="ml-3 flex-1 truncate rounded-md bg-white/5 px-3 py-1 text-center text-[10px] text-zinc-500">{{ . }}</span>
+        {{ end }}
+    </div>
+    <img src="{{ .img }}" alt="{{ .alt }}" class="block w-full h-auto{{ with .imgClass }} {{ . }}{{ end }}"{{ with .imgWidth }} width="{{ . }}"{{ end }}{{ with .imgHeight }} height="{{ . }}"{{ end }} loading="{{ .loading | default "lazy" }}">
+</div>

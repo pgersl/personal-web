@@ -1,0 +1,72 @@
+{{define "main"}}
+    {{ $meta := partial "category-meta.html" .Params.category }}
+    {{ $displayUrl := strings.TrimSuffix "/" (strings.TrimPrefix "https://" .Params.link) }}
+
+    <section class="mx-auto max-w-7xl px-6 pb-24 pt-40">
+
+        <a href="{{ .Parent.RelPermalink }}" class="reveal-item mb-8 inline-flex items-center gap-2 text-xs font-medium text-zinc-400 transition-colors hover:text-white">
+            <i class="fa-solid fa-arrow-left"></i> Zpět na portfolio
+        </a>
+
+        <div class="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-start">
+
+            <div class="reveal-item lg:sticky lg:top-32">
+                <div class="mb-4 flex flex-wrap items-center gap-3">
+                    <span class="glass-card flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[10px] font-medium uppercase tracking-widest text-white">
+                        <i class="fa-solid {{ $meta.icon }} text-web"></i> {{ $meta.label }}
+                    </span>
+                    <span class="text-[10px] uppercase tracking-widest text-zinc-500">{{ .Params.scope }}</span>
+                </div>
+                <h1 class="mb-6 text-3xl font-bold tracking-tight text-white md:text-5xl">{{ .Title }}</h1>
+
+                <div class="mb-8 space-y-4 text-sm font-light leading-relaxed text-zinc-400 md:text-base">
+                    {{ .Content }}
+                </div>
+
+                {{ with .Params.features }}
+                    <div class="mb-8">
+                        <h2 class="mb-3 text-xs font-semibold uppercase tracking-widest text-zinc-500">Co web obsahuje</h2>
+                        <ul class="space-y-2">
+                            {{ range . }}
+                                <li class="flex items-start gap-2 text-sm text-zinc-300">
+                                    <i class="fa-solid fa-check mt-1 text-web"></i> <span>{{ . }}</span>
+                                </li>
+                            {{ end }}
+                        </ul>
+                    </div>
+                {{ end }}
+
+                <a href="{{ .Params.link }}" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full bg-web px-6 py-3.5 text-sm font-medium text-white shadow-[0_0_20px_rgba(59,130,246,0.4)] transition-all hover:bg-blue-600">
+                    Zobrazit web
+                    <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                </a>
+                <p class="mt-6 text-[11px] text-zinc-500">Pokud web vypadá jinak nebo je nedostupný, klient jej od dokončení mohl aktualizovat.</p>
+            </div>
+
+            <div class="reveal-item">
+                {{ partial "browser-frame.html" (dict
+                    "img" (printf "/media/img/portfolio/%s" .Params.image)
+                    "alt" .Title
+                    "url" $displayUrl
+                    "imgWidth" (index .Params.imageSize 0)
+                    "imgHeight" (index .Params.imageSize 1)
+                    "loading" "eager"
+                ) }}
+            </div>
+
+        </div>
+
+        <div class="reveal-item mt-16">
+            <div class="glass-card relative flex flex-col items-center overflow-hidden rounded-3xl p-10 text-center md:p-14">
+                <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-white/[0.01] to-white/[0.03]"></div>
+                <h2 class="relative z-10 mb-3 text-2xl font-bold tracking-tight text-white md:text-3xl">Líbí se vám tento web?</h2>
+                <p class="relative z-10 mb-6 max-w-md text-sm font-light text-zinc-400">Dovolte mi navrhnout a postavit podobný web i pro vás.</p>
+                <a href="{{ with site.GetPage "/contact" }}{{.RelPermalink}}{{end}}" class="relative z-10 flex items-center gap-2 rounded-full bg-web px-8 py-4 text-sm font-medium text-white shadow-[0_0_20px_rgba(59,130,246,0.4)] transition-all hover:bg-blue-600">
+                    Nezávazná poptávka
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+    </section>
+{{end}}

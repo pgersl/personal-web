@@ -1,0 +1,7 @@
+{{- /* Formats an integer as a thousands-grouped number, e.g. 16000 -> "16 000". Matches the "cs-CZ".toLocaleString() grouping used in calculator.js. Usage: {{ partial "kc.html" 6000 }} Kč */ -}}
+{{- $n := . -}}
+{{- if lt $n 1000 -}}
+{{- $n -}}
+{{- else -}}
+{{- div $n 1000 -}}{{- printf "%c" 160 -}}{{- printf "%03d" (mod $n 1000) -}}
+{{- end -}}

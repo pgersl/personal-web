@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="cs" class="dark overflow-x-clip">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/fav/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/fav/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/fav/favicon-16x16.png">
+        <link rel="manifest" href="/fav/site.webmanifest">
+
+        {{ $css := resources.Get "css/main.css" | css.TailwindCSS (dict "minify" (not hugo.IsDevelopment)) }}
+        <link rel="stylesheet" href="{{ $css.RelPermalink }}">
+
+        <script src="https://kit.fontawesome.com/9ab7bfa7fc.js" crossorigin="anonymous"></script>
+        <script src="/js/nav.js" defer></script>
+        <script src="/js/reveal.js" defer></script>
+        {{block "scripts" .}}{{end}}
+        <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} — {{ .Site.Title }}{{ end }}</title>
+    </head>
+    <body class="relative min-h-screen overflow-x-clip bg-obsidian font-sans text-ink selection:bg-web selection:text-white">
+
+        <div class="blob h-96 w-96 bg-web" style="top: -4rem; left: 15%; animation-delay: 0s;"></div>
+        <div class="blob h-[500px] w-[500px] bg-zinc-500" style="top: 8rem; right: 10%; animation-delay: -6s;"></div>
+        <div class="blob h-96 w-96 bg-zinc-700" style="top: 30rem; left: 10%; animation-delay: -12s;"></div>
+
+        <header class="fixed inset-x-0 top-0 z-50 px-4 py-4 sm:px-6">
+            <div id="nav-card" class="glass-card mx-auto max-w-7xl rounded-full px-4 py-3 sm:px-6">
+                <nav class="relative z-10 flex items-center justify-between">
+                    <a href="{{ .Site.Home.RelPermalink }}" class="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-white sm:text-base">
+                        <span class="h-2 w-2 rounded-full bg-web animate-pulse"></span>
+                        web.pgersl.xyz
+                    </a>
+                    <div class="hidden items-center gap-8 text-sm font-medium tracking-wide text-zinc-400 md:flex">
+                        {{range .Site.Menus.main}}
+                            <a href="{{.PageRef}}" class="nav-link transition-colors hover:text-white">{{.Name}}</a>
+                        {{end}}
+                    </div>
+                    <div class="hidden md:flex">
+                        <a href="{{ with .Site.GetPage "/contact" }}{{.RelPermalink}}{{end}}" class="rounded-full bg-web px-4 py-2 text-xs font-medium text-white shadow-[0_0_15px_rgba(59,130,246,0.3)] transition-all hover:bg-blue-600">
+                            Nezávazná poptávka
+                        </a>
+                    </div>
+                    <button id="nav-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu" class="flex h-8 w-8 items-center justify-center text-white md:hidden">
+                        <svg id="nav-icon-open" class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                        <svg id="nav-icon-close" class="hidden h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </nav>
+                <div id="nav-menu" class="hidden flex-col items-start gap-4 pb-1 pt-5 md:hidden">
+                    {{range .Site.Menus.main}}
+                        <a href="{{.PageRef}}" class="nav-link text-base font-medium text-zinc-300 transition-colors hover:text-white">{{.Name}}</a>
+                    {{end}}
+                    <a href="{{ with .Site.GetPage "/contact" }}{{.RelPermalink}}{{end}}" class="rounded-full bg-web px-4 py-2 text-xs font-medium text-white">
+                        Nezávazná poptávka
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <main class="relative z-10">
+            {{block "main" .}}{{end}}
+        </main>
+
+        <footer class="relative z-10 border-t border-white/10 px-6 py-12 text-sm text-zinc-500">
+            <div class="mx-auto grid max-w-7xl grid-cols-1 gap-10 md:grid-cols-4">
+                <div class="md:col-span-2">
+                    <a href="{{ .Site.Home.RelPermalink }}" class="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-white">
+                        <span class="h-2 w-2 rounded-full bg-web"></span>
+                        web.pgersl.xyz
+                    </a>
+                    <p class="mt-3 max-w-sm font-light leading-relaxed text-zinc-400">{{ .Site.Data.company.brandBlurb }}</p>
+                </div>
+                <div>
+                    <h2 class="mb-3 text-xs font-semibold uppercase tracking-widest text-zinc-400">Rychlé odkazy</h2>
+                    <div class="flex flex-col gap-2">
+                        {{range .Site.Menus.main}}
+                            <a href="{{.PageRef}}" class="transition-colors hover:text-white">{{.Name}}</a>
+                        {{end}}
+                    </div>
+                </div>
+                <div>
+                    <h2 class="mb-3 text-xs font-semibold uppercase tracking-widest text-zinc-400">Kontakt</h2>
+                    <div class="flex flex-col gap-2">
+                        <a href="mailto:{{ .Site.Data.company.email }}" class="transition-colors hover:text-white">{{ .Site.Data.company.email }}</a>
+                        <a href="tel:{{ .Site.Data.company.phone }}" class="transition-colors hover:text-white">{{ .Site.Data.company.phoneDisplay }}</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mx-auto mt-10 max-w-7xl border-t border-white/5 pt-6">
+                <div class="flex flex-col gap-2 text-xs text-zinc-600 md:flex-row md:items-center md:justify-between">
+                    {{ $legalParts := slice .Site.Data.company.legalName }}
+                    {{ with .Site.Data.company.address }}{{ $legalParts = $legalParts | append . }}{{ end }}
+                    {{ with .Site.Data.company.ico }}{{ $legalParts = $legalParts | append (printf "IČO %s" .) }}{{ end }}
+                    {{ with .Site.Data.company.registrationNote }}{{ $legalParts = $legalParts | append . }}{{ end }}
+                    <p>{{ delimit $legalParts " · " }}</p>
+                    <p>&copy; {{ now.Format "2006" }} {{ .Site.Data.company.legalName }}. Všechna práva vyhrazena.</p>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,49 @@
+baseURL = "https://web.pgersl.xyz/"
+title = "Petr Geršl — Web Development"
+languageCode = "cs-CZ"
+defaultContentLanguage = "cs"
+uglyURLs = false
+enableEmoji = true
+
+[params]
+    description = "Tvorba webových stránek na míru — jednotlivci, organizace, akce. Transparentní ceník, rychlé dodání, osobní přístup."
+    contactFormEndpoint = "https://script.google.com/macros/s/AKfycbyVHLkv6Tt2RjArVGdrrjUn-URR716sWfxbIHrEHktzvz_OQ7MKPJ2IJHDbkkLFNuM3dw/exec"
+
+[frontmatter]
+    date = ["date", "publishDate", "lastmod"]
+    expiryDate = ["expiryDate"]
+    lastmod = [":git", "lastmod", "date", "publishDate"]
+    publishDate = ["publishDate", "date"]
+
+[markup]
+    [markup.goldmark]
+        [markup.goldmark.renderer]
+            unsafe = true
+
+[outputs]
+    home = ["HTML"]
+    page = ["HTML"]
+
+[[menu.main]]
+    identifier = "home"
+    name = "Domů"
+    pageRef = "/"
+    weight = 1
+
+[[menu.main]]
+    identifier = "portfolio"
+    name = "Portfolio"
+    pageRef = "/portfolio"
+    weight = 2
+
+[[menu.main]]
+    identifier = "pricing"
+    name = "Ceník"
+    pageRef = "/pricing"
+    weight = 3
+
+[[menu.main]]
+    identifier = "contact"
+    name = "Kontakt"
+    pageRef = "/contact"
+    weight = 4

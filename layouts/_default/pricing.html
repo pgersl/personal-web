@@ -1,0 +1,164 @@
+{{define "main"}}
+    {{ $p := .Site.Data.pricing }}
+
+    <section class="mx-auto max-w-7xl px-6 pb-24 pt-40">
+
+        <!-- Header -->
+        <section class="fade-up mx-auto max-w-3xl py-12 text-center">
+            <div class="glass-card mb-6 inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-medium text-zinc-300">
+                <span class="h-1.5 w-1.5 rounded-full bg-web"></span>
+                Transparentní investice & Kalkulace
+            </div>
+            <h1 class="mb-6 text-4xl font-bold tracking-tight text-white md:text-6xl">
+                Spočítejte si cenu <span class="bg-gradient-to-r from-blue-400 via-indigo-300 to-zinc-400 bg-clip-text text-transparent">vašeho webu na míru.</span>
+            </h1>
+            <p class="text-base font-light leading-relaxed text-zinc-400 md:text-lg">
+                Férový model bez skrytých poplatků. Základní cena zahrnuje kompletní homepage a špičkový technický základ. Další podstránky přidáte jednoduše podle vašich potřeb.
+            </p>
+        </section>
+
+        <!-- Calculator -->
+        <section class="py-12">
+            <div class="grid grid-cols-1 items-start gap-8 lg:grid-cols-12">
+
+                <div class="glass-card reveal-item space-y-8 rounded-3xl p-8 md:p-10 lg:col-span-7">
+                    <h2 class="flex items-center justify-between border-b border-white/10 pb-4 text-xl font-semibold text-white">
+                        <span>Parametry projektu</span>
+                        <span class="text-xs font-normal text-zinc-400">Interaktivní kalkulace</span>
+                    </h2>
+
+                    <div class="flex items-center justify-between rounded-2xl border border-white/5 bg-white/[0.02] p-4">
+                        <div>
+                            <div class="text-sm font-medium text-white">Základ webu (Homepage)</div>
+                            <div class="text-xs text-zinc-400">Responzivní design, mobilní optimalizace, SEO setup</div>
+                        </div>
+                        <div class="rounded-full border border-web/20 bg-web/10 px-3 py-1.5 font-mono text-xs font-semibold text-web">{{ partial "kc.html" $p.basePrice }} Kč</div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <label for="pagesRange" class="text-sm font-medium text-white">Dodatečné podstránky (kromě homepage)</label>
+                            <span id="pagesCountDisplay" class="rounded-full border border-web/20 bg-web/10 px-3 py-1 font-mono text-base font-semibold text-web">2 stránky</span>
+                        </div>
+                        <input id="pagesRange" type="range" min="0" max="10" value="2" class="h-2 w-full cursor-pointer appearance-none rounded-lg bg-zinc-800">
+                        <div class="flex justify-between font-mono text-xs text-zinc-500">
+                            <span>0 stránek</span>
+                            <span>5 stránek</span>
+                            <span>10 stránek</span>
+                        </div>
+                        <p class="text-xs font-light text-zinc-400">Každá další podstránka nad rámec homepage stojí fixní poplatek <span class="font-medium text-white">{{ partial "kc.html" $p.pricePerPage }} Kč</span>.</p>
+                    </div>
+
+                    <div class="space-y-4 border-t border-white/10 pt-4">
+                        <div class="mb-3 text-sm font-medium text-white">Doplňkové služby & Správa</div>
+                        <label class="flex cursor-pointer items-start gap-3 rounded-2xl border border-white/5 bg-white/[0.02] p-4 transition-all hover:border-white/20">
+                            <input type="checkbox" id="domainCheck" class="mt-1 h-4 w-4 rounded border-zinc-700 bg-zinc-900 text-web focus:ring-web">
+                            <div class="text-xs">
+                                <span class="mb-0.5 block text-sm font-medium text-white">Správa domény a roční technický servis (+{{ partial "kc.html" $p.yearlyDomainPrice }} Kč / rok)</span>
+                                <span class="font-light text-zinc-400">Volitelné – zvolte pouze v případě, že nemáte vlastní doménu a přejete si její správu ode mě.</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="lg:sticky lg:top-28 lg:col-span-5">
+                    <div class="glass-card reveal-item relative overflow-hidden rounded-3xl border border-web/30 bg-gradient-to-b from-white/[0.04] to-white/[0.01] p-8 shadow-2xl md:p-10">
+                        <div class="pointer-events-none absolute right-0 top-0 h-48 w-48 rounded-full bg-web/10 blur-3xl"></div>
+
+                        <h3 class="relative z-10 mb-2 text-xs font-semibold uppercase tracking-widest text-web">Předběžná kalkulace</h3>
+                        <div class="relative z-10 mb-6 text-3xl font-bold text-white md:text-4xl">Shrnutí nákladů</div>
+
+                        <div class="relative z-10 mb-6 space-y-3 border-b border-white/10 pb-6 text-sm font-light text-zinc-300">
+                            <div class="flex justify-between">
+                                <span>Základní řešení webu</span>
+                                <span class="font-mono font-medium text-white">{{ partial "kc.html" $p.basePrice }} Kč</span>
+                            </div>
+                            <div id="pagesSummaryRow" class="flex justify-between">
+                                <span id="pagesSummaryText">Dodatečné stránky (2×)</span>
+                                <span id="pagesPriceText" class="font-mono font-medium text-white">2 000 Kč</span>
+                            </div>
+                            <div id="domainSummaryRow" class="hidden flex justify-between">
+                                <span>Správa domény (roční poplatek)</span>
+                                <span class="font-mono font-medium text-white">{{ partial "kc.html" $p.yearlyDomainPrice }} Kč</span>
+                            </div>
+                        </div>
+
+                        <div class="relative z-10 mb-8">
+                            <div class="mb-1 text-xs uppercase tracking-widest text-zinc-500">Celková cena jednorázově</div>
+                            <div id="totalPriceDisplay" class="mb-2 text-4xl font-bold tracking-tight text-white">8 000 Kč</div>
+                            <div id="yearlyTotalDisplay" class="hidden font-mono text-xs text-zinc-400">+ {{ partial "kc.html" $p.yearlyDomainPrice }} Kč ročně (za správu domény)</div>
+                        </div>
+
+                        <a id="calcCta" href="{{ with .Site.GetPage "/contact" }}{{.RelPermalink}}{{end}}" class="relative z-10 flex w-full items-center justify-center gap-2 rounded-full bg-web py-4 text-center text-sm font-medium text-white shadow-[0_0_20px_rgba(59,130,246,0.4)] transition-all hover:bg-blue-600">
+                            Poptat tento projekt
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                        <p class="relative z-10 mt-4 text-center text-[11px] text-zinc-500">Konečná kalkulace bude upřesněna během úvodní konzultace.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Ongoing maintenance -->
+        <section class="mx-auto max-w-5xl py-20">
+            <div class="reveal-item mb-12 text-center">
+                <h2 class="mb-3 text-xs font-semibold uppercase tracking-widest text-web">Podpora & Budoucí úpravy</h2>
+                <h3 class="text-3xl font-semibold tracking-tight text-white">Jak fungují služby po spuštění webu</h3>
+            </div>
+
+            <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+                <div class="glass-card reveal-item flex flex-col justify-between rounded-3xl p-8">
+                    <div>
+                        <div class="mb-6 flex h-10 w-10 items-center justify-center rounded-2xl border border-web/20 bg-web/10 text-web">
+                            <i class="fa-solid fa-comments"></i>
+                        </div>
+                        <h4 class="mb-3 text-xl font-semibold text-white">Konzultace po spuštění</h4>
+                        <p class="mb-6 text-sm font-light leading-relaxed text-zinc-400">
+                            Diskuze nad strategií, nápady na vylepšení nebo budoucí směrování vašeho webu jsou po spuštění projektu zcela zdarma.
+                        </p>
+                    </div>
+                    <div class="border-t border-white/5 pt-4 font-mono text-xs font-semibold text-web">Cena: Zcela zdarma</div>
+                </div>
+
+                <div class="glass-card reveal-item flex flex-col justify-between rounded-3xl p-8">
+                    <div>
+                        <div class="mb-6 flex h-10 w-10 items-center justify-center rounded-2xl border border-web/20 bg-web/10 text-web">
+                            <i class="fa-solid fa-clock-rotate-left"></i>
+                        </div>
+                        <h4 class="mb-3 text-xl font-semibold text-white">Běžné úpravy obsahu</h4>
+                        <p class="mb-6 text-sm font-light leading-relaxed text-zinc-400">
+                            Potřebujete aktualizovat texty, vyměnit fotografie nebo upravit kontaktní údaje? Úpravy probíhají za férovou hodinovou sazbu za skutečně odvedenou práci.
+                        </p>
+                    </div>
+                    <div class="border-t border-white/5 pt-4 font-mono text-xs text-zinc-300">Sazba: <strong class="text-white">{{ partial "kc.html" $p.hourlyRate }} Kč</strong> / hodina práce</div>
+                </div>
+
+                <div class="glass-card reveal-item flex flex-col justify-between rounded-3xl p-8">
+                    <div>
+                        <div class="mb-6 flex h-10 w-10 items-center justify-center rounded-2xl border border-web/20 bg-web/10 text-web">
+                            <i class="fa-solid fa-file-circle-plus"></i>
+                        </div>
+                        <h4 class="mb-3 text-xl font-semibold text-white">Přidání nové podstránky</h4>
+                        <p class="mb-6 text-sm font-light leading-relaxed text-zinc-400">
+                            Pokud požadovaná dodatečná změna zahrnuje vytvoření zcela nové podstránky, účtuje se vyšší paušální poplatek, který motivuje mít pevnou strukturovanou představu předem.
+                        </p>
+                    </div>
+                    <div class="border-t border-white/5 pt-4 font-mono text-xs text-zinc-300">Sazba: <strong class="text-white">{{ partial "kc.html" $p.newPagePrice }} Kč</strong> za novou podstránku</div>
+                </div>
+            </div>
+        </section>
+
+    </section>
+{{end}}
+
+{{define "scripts"}}
+    <script>
+        window.PRICING = {
+            basePrice: {{ .Site.Data.pricing.basePrice }},
+            pricePerPage: {{ .Site.Data.pricing.pricePerPage }},
+            yearlyDomainPrice: {{ .Site.Data.pricing.yearlyDomainPrice }}
+        };
+    </script>
+    <script src="/js/calculator.js" defer></script>
+{{end}}

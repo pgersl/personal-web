@@ -1,0 +1,9 @@
+{{- /* Maps a portfolio category key to its display label + icon. Usage: {{ $meta := partial "category-meta.html" "organization" }} -> {{ $meta.label }} / {{ $meta.icon }} */ -}}
+{{- $categories := dict
+    "individual" (dict "label" "Osobní web" "icon" "fa-user")
+    "organization" (dict "label" "Organizace" "icon" "fa-building")
+    "event" (dict "label" "Akce" "icon" "fa-calendar-days")
+-}}
+{{- $meta := index $categories . -}}
+{{- if not $meta -}}{{- $meta = dict "label" . "icon" "fa-globe" -}}{{- end -}}
+{{- return $meta -}}

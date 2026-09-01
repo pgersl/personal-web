@@ -1,0 +1,21 @@
+# "Pro koho" cards on the homepage.
+- num: "01"
+  title: "Jednotlivci & Portfolia"
+  text: "Prezentujte svou osobní značku, vědeckou činnost, kreativní výstupy nebo profesionální životopis s prvotřídním vizuálem a maximální rychlostí."
+  bullets:
+    - "Vlastní responzivní layout"
+    - "Optimalizace pro SEO a rychlost"
+
+- num: "02"
+  title: "Organizace & Spolky"
+  text: "Profesionální webové struktury pro nadace, neziskové organizace a spolky, které vyžadují důvěryhodnost, přehlednost a možnost rozšiřování stránek."
+  bullets:
+    - "Víceúrovňová struktura stránek"
+    - "Jednoduchá správa obsahu"
+
+- num: "03"
+  title: "Události & Hackathony"
+  text: "Vysoce efektivní landing page navržené speciálně pro sběr registrací, přehledné harmonogramy, prezentaci partnerů a vysokou konverzi účastníků."
+  bullets:
+    - "Optimalizovaný registrační proces"
+    - "Dynamické prvky a harmonogramy"

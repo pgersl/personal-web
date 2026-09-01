@@ -1,0 +1,107 @@
+{{define "main"}}
+    <section class="mx-auto max-w-[1000px] px-6 pb-24 pt-40">
+
+        <section class="fade-up mx-auto max-w-2xl py-12 text-center">
+            <div class="glass-card mb-6 inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-medium text-zinc-300">
+                <span class="h-1.5 w-1.5 rounded-full bg-web"></span>
+                Nezávazná poptávka
+            </div>
+            <h1 class="mb-4 text-4xl font-bold tracking-tight text-white md:text-5xl">
+                Pojďme probrat <span class="bg-gradient-to-r from-blue-400 via-indigo-300 to-zinc-400 bg-clip-text text-transparent">váš nový web.</span>
+            </h1>
+            <p class="text-sm font-light leading-relaxed text-zinc-400 md:text-base">
+                Vyplňte formulář níže a řekněte mi něco o svém projektu. Ozvu se vám co nejdříve s úvodním návrhem postupu.
+            </p>
+        </section>
+
+        <section class="glass-card reveal-item relative rounded-3xl border border-white/10 p-8 shadow-2xl md:p-12">
+            <form id="contactForm" class="space-y-8" data-endpoint="{{ .Site.Params.contactFormEndpoint }}">
+
+                <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+                    <div class="space-y-2">
+                        <label for="name" class="block text-xs font-medium text-zinc-300">Jméno a příjmení / Firma *</label>
+                        <input type="text" id="name" name="name" required placeholder="např. Jan Novák" class="w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white placeholder-zinc-600 transition-all focus:border-web focus:outline-none">
+                    </div>
+                    <div class="space-y-2">
+                        <label for="email" class="block text-xs font-medium text-zinc-300">E-mailová adresa *</label>
+                        <input type="email" id="email" name="email" required placeholder="jan@novak.cz" class="w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white placeholder-zinc-600 transition-all focus:border-web focus:outline-none">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+                    <div class="space-y-2">
+                        <label for="phone" class="block text-xs font-medium text-zinc-300">Telefonní číslo (nepovinné)</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+420 123 456 789" class="w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white placeholder-zinc-600 transition-all focus:border-web focus:outline-none">
+                    </div>
+                    <div class="space-y-2">
+                        <label for="clientType" class="block text-xs font-medium text-zinc-300">Typ zákazníka</label>
+                        <select id="clientType" name="clientType" class="w-full rounded-xl border border-white/10 bg-[#09090b] px-4 py-3 text-sm text-zinc-300 transition-all focus:border-web focus:outline-none">
+                            <option value="individual">Jednotlivec / OSVČ</option>
+                            <option value="firm">Firma</option>
+                            <option value="organization">Organizace / Spolek</option>
+                            <option value="event">Událost / Projekt</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="space-y-4 border-t border-white/10 pt-4">
+                    <label class="block text-sm font-medium text-white">Odhadovaný rozsah webu (počet stránek)</label>
+                    <div class="flex items-center justify-between">
+                        <span id="formPagesDisplay" class="rounded-full border border-web/20 bg-web/10 px-3 py-1 font-mono text-sm font-semibold text-web">1 stránka (Pouze Homepage)</span>
+                    </div>
+                    <input id="formPagesRange" name="pages" type="range" min="0" max="10" value="0" class="h-2 w-full cursor-pointer appearance-none rounded-lg bg-zinc-800">
+                    <div class="flex justify-between font-mono text-xs text-zinc-500">
+                        <span>Homepage</span>
+                        <span>5 stránek</span>
+                        <span>10+ stránek</span>
+                    </div>
+                </div>
+
+                <div class="space-y-3 pt-2">
+                    <label class="block text-xs font-medium text-zinc-300">Doplňkové požadavky</label>
+                    <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
+                        <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-white/5 bg-white/[0.02] p-3.5 transition-all hover:border-white/20">
+                            <input type="checkbox" id="domainCheck" name="domain" class="h-4 w-4 rounded border-zinc-700 bg-zinc-900 text-web focus:ring-web">
+                            <span class="text-xs text-zinc-300">Požaduji správu domény a technický servis</span>
+                        </label>
+                        <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-white/5 bg-white/[0.02] p-3.5 transition-all hover:border-white/20">
+                            <input type="checkbox" id="contentReadyCheck" name="contentReady" class="h-4 w-4 rounded border-zinc-700 bg-zinc-900 text-web focus:ring-web">
+                            <span class="text-xs text-zinc-300">Mám již hotové texty a grafické podklady</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="space-y-2 pt-2">
+                    <label for="message" class="block text-xs font-medium text-zinc-300">Popis projektu / Vaše představa *</label>
+                    <textarea id="message" name="message" rows="5" required placeholder="Napište mi stručně o čem váš web bude, jaké máte cíle nebo uveďte odkazy na weby, které se vám líbí..." class="w-full resize-none rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white placeholder-zinc-600 transition-all focus:border-web focus:outline-none"></textarea>
+                </div>
+
+                <!-- Honeypot — hidden from real visitors, left blank; bots tend to fill every field -->
+                <div class="absolute -left-[9999px]" aria-hidden="true">
+                    <label for="website">Nechte prázdné</label>
+                    <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+                </div>
+
+                <button type="submit" id="contactSubmit" class="flex w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-web py-4 text-sm font-medium text-white shadow-[0_0_20px_rgba(59,130,246,0.4)] transition-all hover:bg-blue-600">
+                    Odeslat nezávaznou poptávku
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+
+                <p id="formStatus" class="hidden text-center text-sm" role="status"></p>
+            </form>
+        </section>
+
+        <section class="reveal-item glass-card mt-8 rounded-2xl p-6 text-center">
+            <p class="text-xs text-zinc-400">Preferujete přímý kontakt?
+                <a href="mailto:{{ .Site.Data.company.email }}" class="text-web hover:underline">{{ .Site.Data.company.email }}</a>
+                ·
+                <a href="tel:{{ .Site.Data.company.phone }}" class="text-web hover:underline">{{ .Site.Data.company.phoneDisplay }}</a>
+            </p>
+        </section>
+
+    </section>
+{{end}}
+
+{{define "scripts"}}
+    <script src="/js/contact-form.js" defer></script>
+{{end}}

@@ -1,0 +1,56 @@
+{{define "main"}}
+    <section class="mx-auto max-w-7xl px-6 pb-24 pt-40">
+
+        <section class="fade-up mx-auto max-w-3xl py-12 text-center">
+            <div class="glass-card mb-6 inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-medium text-zinc-300">
+                <span class="h-1.5 w-1.5 rounded-full bg-web"></span>
+                Realizované projekty
+            </div>
+            <h1 class="mb-6 text-4xl font-bold tracking-tight text-white md:text-6xl">
+                Kdy mezi nimi <br> <span class="bg-gradient-to-r from-blue-400 via-indigo-300 to-zinc-400 bg-clip-text text-transparent">bude i ten váš?</span>
+            </h1>
+            <p class="text-base font-light leading-relaxed text-zinc-400 md:text-lg">
+                Výběr osobních, organizačních a event webů — od návrhu přes vývoj až po dlouhodobou správu. Klikněte na projekt pro detailní případovou studii.
+            </p>
+        </section>
+
+        <section id="portfolioFilters" class="reveal-item mb-10 flex flex-wrap items-center gap-3">
+            <span class="mr-1 text-xs font-medium uppercase tracking-widest text-zinc-500">Filtrovat:</span>
+            <button type="button" class="filter-chip is-active" data-filter="all">Vše</button>
+            {{ range slice "individual" "organization" "event" }}
+                {{ $meta := partial "category-meta.html" . }}
+                <button type="button" class="filter-chip" data-filter="{{ . }}">
+                    <i class="fa-solid {{ $meta.icon }}"></i> {{ $meta.label }}
+                </button>
+            {{ end }}
+        </section>
+
+        <section id="portfolioGrid" class="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+            {{ range .RegularPages.ByWeight }}
+                {{ $meta := partial "category-meta.html" .Params.category }}
+                {{ $displayUrl := strings.TrimSuffix "/" (strings.TrimPrefix "https://" .Params.link) }}
+                <a href="{{ .RelPermalink }}" class="reveal-item portfolio-card group block" data-category="{{ .Params.category }}">
+                    {{ partial "browser-frame.html" (dict
+                        "img" (printf "/media/img/portfolio/%s" .Params.image)
+                        "alt" .Title
+                        "url" $displayUrl
+                        "imgClass" "aspect-[4/3] object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                        "imgWidth" (index .Params.imageSize 0)
+                        "imgHeight" (index .Params.imageSize 1)
+                    ) }}
+                    <div class="mt-4">
+                        <h3 class="text-lg font-semibold text-white transition-colors group-hover:text-web">{{ .Title }}</h3>
+                        <p class="mt-1 flex items-center gap-1.5 text-xs text-zinc-500">
+                            <i class="fa-solid {{ $meta.icon }} text-web"></i> {{ $meta.label }} · {{ .Params.scope }}
+                        </p>
+                    </div>
+                </a>
+            {{ end }}
+        </section>
+
+    </section>
+{{end}}
+
+{{define "scripts"}}
+    <script src="/js/portfolio-filter.js" defer></script>
+{{end}}

@@ -1,0 +1,15 @@
+# Footer / business details. Everything here shows up in the site footer —
+# edit freely, no template changes needed. Fill in the TODO placeholders
+# before launch.
+brandBlurb: "Tvorba webových stránek na míru pro jednotlivce, organizace a akce. Čistý design, rychlé dodání, osobní přístup."
+
+email: "pgersl05@gmail.com"
+phone: "+420731347915"
+phoneDisplay: "+420 731 347 915"
+
+# OSVČ / business identification — required for a proper business footer.
+# TODO: fill in your real details.
+legalName: "Petr Geršl"
+address: ""
+ico: "23250585"
+registrationNote: "Zapsán v živnostenském rejstříku."

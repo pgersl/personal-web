@@ -1,0 +1,9 @@
+# Single source of truth for pricing — used by the calculator (pricing.html)
+# and injected into calculator.js at build time. Edit these numbers and both
+# the static price cards and the interactive calculator update.
+
+basePrice: 6000
+pricePerPage: 1000
+yearlyDomainPrice: 1000
+hourlyRate: 500
+newPagePrice: 1500

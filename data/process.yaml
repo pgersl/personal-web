@@ -1,0 +1,20 @@
+# Four-step "how we work together" timeline on the homepage.
+- num: "01"
+  phase: "Fáze 1"
+  title: "Úvodní konzultace"
+  text: "Definice cílů, vizuálního tónu, cílové skupiny a rozsahu projektu."
+
+- num: "02"
+  phase: "Fáze 2"
+  title: "Návrh & Struktura"
+  text: "Vytvoření struktury stránek, rozvržení obsahu a wireframů."
+
+- num: "03"
+  phase: "Fáze 3"
+  title: "Vývoj & Kód"
+  text: "Čistý kód, responzivní layout, plynulé animace a interaktivní prvky."
+
+- num: "04"
+  phase: "Fáze 4"
+  title: "Spuštění & Správa"
+  text: "Závěrečné testování výkonu, nasazení na doménu a následná správa."
