@@ -3,7 +3,7 @@ title: "music.pgersl.xyz"
 category: "individual"
 scope: "design, administrativa"
 image: "music-pgersl-xyz.webp"
-imageSize: [1440, 2500]
+imageSize: [1440, 2724]
 link: "https://music.pgersl.xyz/"
 date: 2026-01-01  # approximate — adjust if needed
 weight: 7
